@@ -19,8 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.undabot.newshub.R
 import com.undabot.newshub.domain.model.Article
 import com.undabot.newshub.domain.model.Source
 import com.undabot.newshub.ui.components.NetworkImage
@@ -35,13 +37,18 @@ fun HomeScreenContent(
     modifier = Modifier.fillMaxSize(),
   ) {
     item {
-      LazyRow(
+      Text(
         modifier = Modifier
           .statusBarsPadding()
-          .padding(
-            top = 30.dp,
-            bottom = 8.dp,
-          ),
+          .padding(21.dp),
+        text = stringResource(id = R.string.app_name),
+        style = MaterialTheme.typography.titleLarge,
+      )
+    }
+    item {
+      LazyRow(
+        modifier = Modifier
+          .padding(bottom = 8.dp),
       ) {
         items(state.availableSources) { source ->
           SourceButton(
