@@ -13,7 +13,7 @@ fun NetworkImage(
   GlideImage(
     modifier = modifier,
     model = url,
-    contentDescription = "",
+    contentDescription = null,
     contentScale = ContentScale.Crop,
   )
 }

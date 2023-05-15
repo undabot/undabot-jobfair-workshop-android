@@ -1,18 +1,26 @@
 package com.undabot.newshub.ui.articleDetails
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.undabot.newshub.ui.components.LoadingContent
 
 @Composable
-fun ArticleDetailsScreen(articleId: String) {
-  Box(
-    modifier = Modifier.fillMaxSize(),
-    contentAlignment = Alignment.Center,
-  ) {
-    Text(text = "Article details screen $articleId")
+fun ArticleDetailsScreen(
+  viewModel: ArticleDetailsScreenViewModel = hiltViewModel(),
+) {
+
+  val state: ArticleDetailsScreenState by viewModel.state.collectAsState()
+
+  Crossfade(
+    targetState = state.isLoading,
+  ) { isLoading ->
+    if (isLoading) {
+      LoadingContent()
+    } else {
+      state.article?.let { ArticleDetailsScreenContent(it) }
+    }
   }
 }

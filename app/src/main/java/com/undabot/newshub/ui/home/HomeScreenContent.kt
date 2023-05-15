@@ -2,8 +2,10 @@ package com.undabot.newshub.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -26,6 +28,7 @@ import com.undabot.newshub.R
 import com.undabot.newshub.domain.model.Article
 import com.undabot.newshub.domain.model.Source
 import com.undabot.newshub.ui.components.NetworkImage
+import com.undabot.newshub.ui.components.SourceButton
 
 @Composable
 fun HomeScreenContent(
@@ -35,6 +38,8 @@ fun HomeScreenContent(
 ) {
   LazyColumn(
     modifier = Modifier.fillMaxSize(),
+    contentPadding = PaddingValues(vertical = 16.dp),
+    verticalArrangement = Arrangement.spacedBy(16.dp),
   ) {
     item {
       Text(
@@ -49,6 +54,8 @@ fun HomeScreenContent(
       LazyRow(
         modifier = Modifier
           .padding(bottom = 8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
       ) {
         items(state.availableSources) { source ->
           SourceButton(
@@ -72,11 +79,7 @@ fun HomeScreenContent(
 private fun ArticleCard(article: Article, onClick: () -> Unit) {
   Box(
     modifier = Modifier
-      .padding(
-        top = 16.dp,
-        start = 16.dp,
-        end = 16.dp,
-      )
+      .padding(horizontal = 16.dp)
       .shadow(
         elevation = 3.dp,
         shape = RoundedCornerShape(8.dp),
@@ -109,41 +112,5 @@ private fun ArticleCard(article: Article, onClick: () -> Unit) {
         )
       }
     }
-  }
-}
-
-@Composable
-private fun SourceButton(
-  source: Source,
-  isSelected: Boolean,
-  onClick: () -> Unit,
-) {
-  Box(
-    modifier = Modifier
-      .padding(
-        start = 16.dp,
-      )
-      .clip(RoundedCornerShape(8.dp))
-      .background(
-        color = if (isSelected) {
-          MaterialTheme.colorScheme.primary
-        } else {
-          MaterialTheme.colorScheme.secondary
-        },
-      )
-      .clickable(onClick = onClick),
-  ) {
-    Text(
-      modifier = Modifier.padding(
-        vertical = 6.dp,
-        horizontal = 12.dp,
-      ),
-      text = source.name,
-      style = if (isSelected) {
-        MaterialTheme.typography.labelMedium
-      } else {
-        MaterialTheme.typography.labelSmall
-      },
-    )
   }
 }

@@ -3,7 +3,9 @@ package com.undabot.newshub.domain.repository
 import com.undabot.newshub.domain.model.Article
 import com.undabot.newshub.domain.model.Source
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class ArticlesStore @Inject constructor() {
 
   private val cache = HashMap<String, List<Article>>()

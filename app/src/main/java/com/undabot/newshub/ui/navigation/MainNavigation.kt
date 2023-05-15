@@ -25,8 +25,8 @@ fun MainNavigation() {
     composable(
       route = "articleDetails/{articleId}",
       arguments = listOf(navArgument("articleId") { type = NavType.StringType })
-    ) { backStackEntry ->
-      ArticleDetailsScreen(backStackEntry.arguments?.getString("articleId")!!)
+    ) {
+      ArticleDetailsScreen()
     }
   }
 }
