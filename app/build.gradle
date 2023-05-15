@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.undabot.newsnow'
+    namespace 'com.undabot.newshub'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.undabot.newsnow"
+        applicationId "com.undabot.newshub"
         minSdk 24
         targetSdk 33
         versionCode 1
