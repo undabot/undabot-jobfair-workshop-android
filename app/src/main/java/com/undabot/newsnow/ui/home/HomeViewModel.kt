@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.undabot.newsnow.domain.model.Source
 import com.undabot.newsnow.domain.repository.ArticlesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +22,6 @@ class HomeViewModel @Inject constructor(
 
   init {
     viewModelScope.launch {
-      delay(500)
       val availableSources = articlesRepository.getAvailableSources()
       val initSource = availableSources.first()
       val articles = articlesRepository.getArticlesFrom(initSource.id)
