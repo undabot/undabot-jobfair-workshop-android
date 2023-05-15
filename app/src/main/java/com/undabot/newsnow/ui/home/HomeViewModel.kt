@@ -48,6 +48,7 @@ class HomeViewModel @Inject constructor(
       val articles = articlesRepository.getArticlesFrom(source.id)
       _state.update {
         it.copy(
+          isLoading = false,
           articles = articles,
           currentSource = source,
         )

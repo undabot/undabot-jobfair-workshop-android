@@ -1,6 +1,7 @@
 package com.undabot.newsnow.ui.home
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -11,11 +12,18 @@ import com.undabot.newsnow.ui.components.LoadingContent
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
   val state: HomeScreenState by viewModel.state.collectAsState()
 
-  Crossfade(targetState = state.isLoading) { isLoading ->
+  Crossfade(
+    targetState = state.isLoading,
+    animationSpec = tween(500),
+  ) { isLoading ->
     if (isLoading) {
       LoadingContent()
     } else {
-      HomeScreenContent(state)
+      HomeScreenContent(
+        state = state,
+        onSourceClick = { viewModel.changeSource(it) },
+        onArticleClick = {},
+      )
     }
   }
 }
