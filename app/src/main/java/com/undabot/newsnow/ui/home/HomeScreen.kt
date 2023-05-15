@@ -9,7 +9,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.undabot.newsnow.ui.components.LoadingContent
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+  navigateToArticleDetails: (String) -> Unit,
+  viewModel: HomeViewModel = hiltViewModel(),
+) {
   val state: HomeScreenState by viewModel.state.collectAsState()
 
   Crossfade(
@@ -22,7 +25,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
       HomeScreenContent(
         state = state,
         onSourceClick = { viewModel.changeSource(it) },
-        onArticleClick = {},
+        onArticleClick = { navigateToArticleDetails(it.id) },
       )
     }
   }
