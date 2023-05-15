@@ -2,6 +2,7 @@ package com.undabot.newsnow.data.model
 
 import com.squareup.moshi.JsonClass
 import com.undabot.newsnow.domain.model.Article
+import java.util.UUID
 
 @JsonClass(generateAdapter = true)
 data class ArticleResource(
@@ -17,6 +18,7 @@ data class ArticleResource(
 
   fun toDomain(): Article {
     return Article(
+      id = UUID.randomUUID().toString(),
       source = source?.toDomain(),
       author = author.orEmpty(),
       title = title.orEmpty(),

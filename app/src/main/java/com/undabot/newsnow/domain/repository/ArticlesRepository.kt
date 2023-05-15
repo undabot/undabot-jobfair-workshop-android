@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 class ArticlesRepository @Inject constructor(
   private val apiService: ApiService,
+  private val articlesStore: ArticlesStore,
 ) {
 
   companion object {
@@ -17,8 +18,16 @@ class ArticlesRepository @Inject constructor(
     const val API_KEY = ""
   }
 
-  suspend fun getArticlesFrom(source: String): List<Article> = try {
-    apiService.getArticlesFrom(source, API_KEY).articles?.map { it.toDomain() } ?: emptyList()
+  suspend fun getArticlesFrom(source: Source): List<Article> = try {
+    if (articlesStore.hasArticles(source)) {
+      articlesStore.getArticles(source)
+    } else {
+      val remoteArticles =
+        apiService.getArticlesFrom(source.id, API_KEY).articles?.map { it.toDomain() }
+          ?: emptyList()
+      articlesStore.saveArticles(source, remoteArticles)
+      remoteArticles
+    }
   } catch (e: Exception) {
     emptyList()
   }
@@ -36,5 +45,9 @@ class ArticlesRepository @Inject constructor(
       Source("wired", "Wired"),
       Source("the-verge", "The Verge"),
     )
+  }
+
+  suspend fun getArticle(id: String): Article = withContext(Dispatchers.IO) {
+    articlesStore.getArticle(id)
   }
 }

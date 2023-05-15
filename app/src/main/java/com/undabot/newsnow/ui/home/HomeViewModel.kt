@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     viewModelScope.launch {
       val availableSources = articlesRepository.getAvailableSources()
       val initSource = availableSources.first()
-      val articles = articlesRepository.getArticlesFrom(initSource.id)
+      val articles = articlesRepository.getArticlesFrom(initSource)
       _state.update {
         it.copy(
           isLoading = false,
@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
           isLoading = true,
         )
       }
-      val articles = articlesRepository.getArticlesFrom(source.id)
+      val articles = articlesRepository.getArticlesFrom(source)
       _state.update {
         it.copy(
           isLoading = false,

@@ -1,6 +1,7 @@
 package com.undabot.newsnow.domain.model
 
 data class Article(
+  val id: String,
   val source: Source?,
   val author: String,
   val title: String,
