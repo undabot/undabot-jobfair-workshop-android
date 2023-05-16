@@ -1,4 +1,4 @@
-package com.undabot.newsnow
+package com.undabot.newshub
 
 import org.junit.Test
 
